@@ -1,20 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-//routers
-router.get('/',(req,res)=>{
-    //res.sendFile(__dirname+"");
-    res.render('index', {title:'first website'});
-});
-
-router.get('/product',(req,res)=>{
-    //res.sendFile(__dirname+"");
-    res.render('index', {title:'first website'});
-});
-
-router.get('/proveedor',(req,res)=>{
-    //res.sendFile(__dirname+"");
-    res.render('product', {title:'first website'});
+/* GET home page. */
+router.get('/', function(req, res, next) {
+  res.render('index', { title: 'Express' });
 });
 
 module.exports = router;

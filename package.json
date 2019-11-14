@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node src",
-    "dev": "nodemon src"
+    "start": "node src/bin/www",
+    "dev": "nodemon src/bin/www"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,8 @@
     "express": "^4.17.1",
     "express-myconnection": "^1.0.4",
     "morgan": "^1.9.1",
-    "mysql": "^2.17.1"
+    "mysql": "^2.17.1",
+    "pg": "^7.12.1"
   },
   "devDependencies": {
     "nodemon": "^1.19.4"

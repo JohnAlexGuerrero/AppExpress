@@ -1,9 +1,11 @@
 const express = require('express');
 const path = require('path');
-const mysql = require('mysql');
-const myConnection = require('express-myconnection');
+//const mysql = require('mysql');
+const myConnection = require('./models/connection');
 const morgan = require('morgan');
-//const router = require('routers');
+
+const indexRouter = require('./routes/index');
+const productosRouter = require('./routes/productoController');
 
 const app = express();
 
@@ -14,24 +16,21 @@ app.set('views',path.join(__dirname,'views'))
 
 //middlewares
 app.use(morgan('dev'));
-app.use(myConnection(mysql,{
-    host: 'localhost',
-    user: 'root',
-    password: 'contrasena',
-    port: 3306,
-    database: 'store'
-},'single'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname,'public')));
 
-//routes
-app.use(require('./routes/index'));
+app.use('/',indexRouter);
+app.use('/productos',productosRouter);
 
+//catch 404 and forward ro error handler
+app.use(function(err,req,res,next){
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err:{};
 
-//app.get(router);
+    res.status(err.status || 500);
+    res.render('error');
 
-// static files
-app.use(express.static(path.join(__dirname, 'public')));
-
-//listening the server
-app.listen(app.get('port'), ()=>{
-    console.log('Server working on port ',app.get('port'));
 })
+
+module.exports = app;
