@@ -1,11 +1,11 @@
 <%- include("../header"); %>
 <div class="col-12">
-    <h1>Editar producto</h1>
-    <form method="post" action="/productos/actualizar">
+    <h2>Inventario</h2>
+    <form method="post" action="/productos/inventario">
 
         <input value="<%= producto.idproductos %>" name="id" type="hidden">
         <div class="form-group">
-            <label for="nombre">Nombre</label>
+            <label for="nombre"><%= producto.nombre %></label>
             <input value="<%= producto.nombre %>" required id="nombre" placeholder="Nombre del producto"
                 class="form-control" type="text" name="nombre">
         </div>

@@ -1,7 +1,8 @@
+var createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 //const mysql = require('mysql');
-const myConnection = require('./models/connection');
+const myConnection = require('./connection');
 const morgan = require('morgan');
 
 const indexRouter = require('./routes/index');
@@ -22,8 +23,17 @@ app.use(express.static(path.join(__dirname,'public')));
 
 app.use('/',indexRouter);
 app.use('/productos',productosRouter);
+app.use('/inventario',productosRouter);
 
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    next(createError(404));
+  });
+  
 //catch 404 and forward ro error handler
+
+
 app.use(function(err,req,res,next){
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err:{};

@@ -5,7 +5,7 @@
  */
 
 var app = require('../index');
-var debug = require('debug')('crud-postgresql-node:server');
+var debug = require('debug')('AppExpress:server');
 var http = require('http');
 
 /**

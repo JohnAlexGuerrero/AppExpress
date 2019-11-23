@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const productosModel = require('../models/productos');
+const productosModel = require('../models/categoria');
 
 router.get('/',function (req,res,next){
     productosModel.obtener().then(productos =>{
@@ -15,18 +15,18 @@ router.get('/',function (req,res,next){
     });
 });
 
-router.get('/agregar',(req,res,next)=>{
-    res.render('productos/agregar');
+router.get('/add',(req,res,next)=>{
+    res.render('categorias/adds');
 });
 
 router.post('/insertar',(req,res,next)=>{
-    const {nombre,codigo,und,stock,precio,description,pventa} = req.body;
+    const {nombre, precio} = req.body;
 
-    /*if(!nombre || !precio ||!codigo ||!und){
-        return res.status(500).send('Datos insuficientes');
-    }*/
+    if(!nombre || !precio){
+        return res.status(500).send('No hay nombre o precio');
+    }
 
-    productosModel.insertar(nombre,codigo,und,stock,precio,description,pventa)
+    productosModel.insertar(nombre, precio)
     .then(idproductoInsertado =>{
         res.redirect('/productos');
     })
@@ -40,22 +40,6 @@ router.get('/eliminar/:idproductos',(req,res,next)=>{
     .then(producto =>{
         if(producto){
             res.render('productos/editar',{
-                producto: producto,
-            });
-        }else{
-            return res.status(500).send('No existe producto con ese id');
-        }
-    })
-    .catch(err =>{
-        return res.status(500).send('Error obtenido producto');
-    });
-});
-
-router.get('/inventario/:idproductos',(req,res,next)=>{
-    productosModel.obtenerPorId(req.params.idproductos)
-    .then(producto =>{
-        if(producto){
-            res.render('productos/inventario',{
                 producto: producto,
             });
         }else{
@@ -100,6 +84,5 @@ router.post('/actualizar/', (req,res,next)=>{
         
     
 });
-
 
 module.exports = router;

@@ -1,28 +1,38 @@
 <%- include("../header"); %>
-<div class="col-12">
-    <h1>Productos</h1>
-    <a href="/productos/agregar" class="btn btn-primary mb-2">Agregar</a>
-    <table class="table table-bordered">
+<div class="container my-3">
+    <div class="row">
+        <div class="col-sm-8"><h2>Productos</h2></div>
+        <div class="col-sm-4">
+            <input id="myInput" class="form-control mr-sm-2" type="text" placeholder="Search Product">
+        </div>
+    </div>
+</div>
+<div class="container my-3">
+    
+    <table class="table table-bor table-sm  dered table-striped">
         <thead>
             <tr>
                 <th>Nombre</th>
                 <th>Precio</th>
-                <th>Editar</th>
-                <th>Eliminar</th>
+                <th>stock</th>
+                <th>Unidad</th>
+                <th>Costo</th>
+                <th>Acciones</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="myTable">
             <% productos.forEach(producto => { %>
             <tr>
                 <td><%= producto.nombre %></td>
-                <td><%= producto.precio %></td>
+                <td>$<%= producto.precio %></td>
+                <td><%= producto.stock %></td>
+                <td><%= producto.nomund %></td>
+                <td>$<%= producto.preciocosto %></td>
                 <td>
-                    <a href="/productos/editar/<%= producto.id %>" class="btn btn-warning">
+                    <a href="/productos/editar/<%= producto.idproductos %>" class="btn btn-outline-primary btn-sm">
                         Editar
                     </a>
-                </td>
-                <td>
-                    <a href="/productos/eliminar/<%= producto.id %>" class="btn btn-danger">
+                    <a href="/productos/eliminar/<%= producto.id %>" class="btn btn-outline-danger btn-sm">
                         Eliminar
                     </a>
                 </td>
@@ -31,4 +41,5 @@
         </tbody>
     </table>
 </div>
+
 <%- include("../footer"); %>
