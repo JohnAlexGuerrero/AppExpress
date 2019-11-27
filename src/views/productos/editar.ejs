@@ -1,23 +1,87 @@
 <%- include("../header"); %>
-<div class="col-12">
-    <h1>Editar producto</h1>
-    <form method="post" action="/productos/actualizar">
+<div class="col-12 my-3">
 
-        <input value="<%= producto.idproductos %>" name="id" type="hidden">
-        <div class="form-group">
-            <label for="nombre">Nombre</label>
-            <input value="<%= producto.nombre %>" required id="nombre" placeholder="Nombre del producto"
-                class="form-control" type="text" name="nombre">
+    <h2 class="text-center"><%= producto.nombre %></h2>
+    <hr>
+    <div class="row">
+        <div class="col-sm-12">
+            <form method="post" action="/productos/inventario">
+                <input value="<%= new Date() %>" name="fmodifited" id="demo" type="hidden">
+                <input value="<%= producto.idproductos %>" name="id" type="hidden">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="nombre">Código</label>
+                        <input required id="codigo" placeholder="Código del producto" class="form-control" type="text"
+                            name="codigo">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="nombre">Marca</label>
+                            <input required id="marca" placeholder="Marca del producto" class="form-control" type="text"
+                                name="marca">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="nombre">Color</label>
+                            <input id="color" placeholder="Nombre del producto" class="form-control" type="text"
+                                name="color" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group ">
+                            <label for="inputState">Unidad</label>
+                            <select id="inputState" class="form-control" id="und" name="und">
+                                <option selected>Choose...</option>
+                                <option value="1">Unidad</option>
+                                <option value="2">Kilo</option>
+                                <option value="3">Bulto</option>
+                                <option value="4">Galon</option>
+                                <option value="5">Caneca</option>
+                                <option value="6">Metro</option>
+                                <option value="7">Rollo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label for="precio">Cantidad</label>
+                        <input required id="cantidad" placeholder=" " class="form-control" type="number"
+                            name="cantidad">
+                    </div>
+                    <div class="col-sm-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="precio">Precio costo</label>
+                            <input required id="costo" placeholder="Precio del producto" class="form-control"
+                                type="number" name="costo">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-sm-4">
+                        <div class="form-group">
+                            <label for="precio">Precio de Venta</label>
+                            <input required id="pventa" placeholder="Precio del producto" class="form-control"
+                                type="number" name="precio">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-success ">Guardar</button>
+                    &nbsp;<a href="/productos" class="btn btn-primary">Volver</a>
+                </div>
+                <div class="row">
+
+
+
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="precio">Precio</label>
-            <input value="<%= producto.precio %>" required id="precio" placeholder="Precio del producto"
-                class="form-control" type="number" name="precio">
-        </div>
-        <div class="form-group">
-            <button class="btn btn-success">Guardar</button>
-            &nbsp;<a href="/productos" class="btn btn-primary">Volver</a>
-        </div>
-    </form>
+    </div>
+
+
 </div>
 <%- include("../footer"); %>

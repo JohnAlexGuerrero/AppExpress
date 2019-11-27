@@ -1,7 +1,16 @@
 <%- include("../header"); %>
+
+<p id="demo"></p>
+
+<script>
+    var d = new Date();
+    document.getElementById("demo").innerHTML = d;
+</script>
 <div class="container my-3">
     <div class="row">
-        <div class="col-sm-8"><h2>Productos</h2></div>
+        <div class="col-sm-8">
+            <h2>Productos</h2>
+        </div>
         <div class="col-sm-4">
             <input id="myInput" class="form-control mr-sm-2" type="text" placeholder="Search Product">
         </div>
@@ -9,37 +18,24 @@
 </div>
 <div class="container my-3">
     
-    <table class="table table-bor table-sm  dered table-striped">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>stock</th>
-                <th>Unidad</th>
-                <th>Costo</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody id="myTable">
-            <% productos.forEach(producto => { %>
-            <tr>
-                <td><%= producto.nombre %></td>
-                <td>$<%= producto.precio %></td>
-                <td><%= producto.stock %></td>
-                <td><%= producto.nomund %></td>
-                <td>$<%= producto.preciocosto %></td>
-                <td>
-                    <a href="/productos/editar/<%= producto.idproductos %>" class="btn btn-outline-primary btn-sm">
-                        Editar
-                    </a>
-                    <a href="/productos/eliminar/<%= producto.id %>" class="btn btn-outline-danger btn-sm">
-                        Eliminar
-                    </a>
-                </td>
-            </tr>
-            <% })%>
-        </tbody>
-    </table>
+    <% productos.forEach(producto => { %>
+    <ul class="list-group" id="myList">
+        <li class="list-group-item  col-sm-12 list-group-item-action d-flex justify-content-between align-items-center">
+            <a href="/productos/editar/<%= producto.idproductos %>" class="list-group-item-action">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <%= producto.nombre %>
+                    </div>
+                    <div class="col-sm-3">
+                        Precio Venta $ 13.000
+                    </div>
+                </div>
+            </a>
+            <span class="badge badge-primary badge-pill">0   Und</span>
+        </li>
+    </ul>
+    <% })%>
+
 </div>
 
 <%- include("../footer"); %>

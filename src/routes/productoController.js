@@ -20,13 +20,9 @@ router.get('/agregar',(req,res,next)=>{
 });
 
 router.post('/insertar',(req,res,next)=>{
-    const {nombre,codigo,und,stock,precio,description,pventa} = req.body;
+    const {nombre} = req.body;
 
-    /*if(!nombre || !precio ||!codigo ||!und){
-        return res.status(500).send('Datos insuficientes');
-    }*/
-
-    productosModel.insertar(nombre,codigo,und,stock,precio,description,pventa)
+    productosModel.insertar(nombre)
     .then(idproductoInsertado =>{
         res.redirect('/productos');
     })
@@ -83,14 +79,15 @@ router.get('/editar/:idproductos',(req,res,next)=>{
     });
 });
 
-router.post('/actualizar/', (req,res,next)=>{
-    const { idproductos, nombre, precio } = req.body;
-    if(!nombre || !precio || !idproductos){
+router.post('/inventario/', (req,res,next)=>{
+    const { fmodifited,id,marca,color,und,cantidad,costo, precio } = req.body;
+    
+    if(!id | !fmodifited ){
         return res.status(500).send('No hay sufucientes datos');
     }
 
-    productosModel.actualizar(idproductos,nombre,precio)
-    .then( () =>{
+    productosModel.addinventario(fmodifited,id,marca,color,und,cantidad,costo, precio)
+    .then(idproductoInser =>{
         res.redirect('/productos');
     })
     .catch(err => {
