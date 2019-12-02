@@ -5,8 +5,7 @@
     <hr>
     <div class="row">
         <div class="col-sm-12">
-            <form method="post" action="/productos/inventario">
-                <input value="<%= new Date() %>" name="fmodifited" id="demo" type="hidden">
+            <form method="post" action="/productos/item">
                 <input value="<%= producto.idproductos %>" name="id" type="hidden">
                 <div class="col-sm-4">
                     <div class="form-group">
@@ -63,7 +62,7 @@
                     <div class="col-sm-4 col-sm-4">
                         <div class="form-group">
                             <label for="precio">Precio de Venta</label>
-                            <input required id="pventa" placeholder="Precio del producto" class="form-control"
+                            <input required id="precio" placeholder="Precio del producto" class="form-control"
                                 type="number" name="precio">
                         </div>
                     </div>
@@ -72,11 +71,6 @@
                 <div class="form-group">
                     <button class="btn btn-success ">Guardar</button>
                     &nbsp;<a href="/productos" class="btn btn-primary">Volver</a>
-                </div>
-                <div class="row">
-
-
-
                 </div>
             </form>
         </div>

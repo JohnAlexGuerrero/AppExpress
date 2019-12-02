@@ -79,14 +79,14 @@ router.get('/editar/:idproductos',(req,res,next)=>{
     });
 });
 
-router.post('/inventario/', (req,res,next)=>{
-    const { fmodifited,id,marca,color,und,cantidad,costo, precio } = req.body;
+router.post('/item', (req,res,next)=>{
+    const { id,codigo,marca,color,und,cantidad,costo, precio } = req.body;
     
-    if(!id | !fmodifited ){
+    if(!id | !codigo ){
         return res.status(500).send('No hay sufucientes datos');
     }
 
-    productosModel.addinventario(fmodifited,id,marca,color,und,cantidad,costo, precio)
+    productosModel.addinventario(id,codigo,marca,color,und,cantidad,costo, precio)
     .then(idproductoInser =>{
         res.redirect('/productos');
     })
