@@ -10,14 +10,16 @@
 );
 
 CREATE TABLE productos (
-    idproductos integer NOT NULL,
+    idproductos SERIAL,
     datemodified timestamp without time zone DEFAULT now(),
     nombre character varying(45) NOT NULL,
     stock smallint DEFAULT 0::smallint,
     idund smallint NOT NULL,
-    pcosto numeric(10,2) DEFAULT 0.00 NOT NULL,
-    total numeric(10,2) DEFAULT 0.00 NOT NULL
+    pcosto numeric(10,2) DEFAULT 0.00 NOT NULL
 );
+
+ALTER TABLE ONLY productos
+    ADD CONSTRAINT productos_pkey PRIMARY KEY (idproductos);
 
 CREATE TABLE proveedor (
     idproveedor integer NOT NULL,
@@ -30,14 +32,17 @@ CREATE TABLE unidad (
     nomund character varying(25) NOT NULL
 );
 
-CREATE TABLE public.ventas (
-    idventa integer NOT NULL,
+CREATE TABLE ventas (
+    idventa SERIAL,
     datecreated timestamp without time zone DEFAULT now(),
-    id_producto smallint NOT NULL,
+    idproducto smallint NOT NULL,
     cantidad smallint NOT NULL,
     precio numeric(10,2) DEFAULT 0.00 NOT NULL,
-    total numeric(10,2) DEFAULT 0.00 NOT NULL
+    total numeric(10,2) DEFAULT 0.00 NOT NULL,
+    PRIMARY KEY(idventa),
+    CONSTRAINT fk_producto FOREIGN KEY (idproducto) REFERENCES productos(idproductos)
 );
+
 
 
 --llaves primarias
@@ -49,9 +54,7 @@ ALTER TABLE ONLY compras
 ALTER TABLE ONLY productos
     ADD CONSTRAINT productos_nombre_key UNIQUE (nombre);
 
-    
-ALTER TABLE ONLY productos
-    ADD CONSTRAINT productos_pkey PRIMARY KEY (idproductos);
+drop table carrito
 
     
 ALTER TABLE ONLY proveedor
@@ -70,7 +73,7 @@ ALTER TABLE ONLY ventas
 
     
 ALTER TABLE ONLY ventas
-    ADD CONSTRAINT fk_producto FOREIGN KEY (id_producto) REFERENCES public.productos(idproductos);
+    ADD 
 
     
 ALTER TABLE ONLY compras
@@ -91,8 +94,8 @@ INSERT INTO unidad(idunidad,nomund)VALUES(5,'MTR');
 INSERT INTO unidad(idunidad,nomund)VALUES(6,'KILO');
 
 
-INSERT INTO productos(idproductos,datemodified,nombre,stock,idund,pcosto,total) VALUES(1,'28-06-2019','CEMENTO GRIS ARGOS X 50KL',0,1,0,0);
-INSERT INTO productos(idproductos,datemodified,nombre,stock,idund,pcosto,total) VALUES(2,'28-06-2019','CEMENTO GRIS TEQUENDAMA X 50KL',0,1,0,0);
+INSERT INTO productos(nombre,stock,idund,pcosto) VALUES('SIFON LAVAPLATOS 2 PULG RIOPLAST',12,1,3000);
+INSERT INTO productos(nombre,stock,idund,pcosto) VALUES('REJILLA 2 PULG CON SOSCO ALUMINIO',12,1,2000);
 INSERT INTO productos(idproductos,datemodified,nombre,stock,idund,pcosto,total) VALUES(3,'28-06-2019','MANGUERA AGRICOLA 1/2 X 100 MTRS UNIPLAST',0,2,0,0);
 INSERT INTO productos(idproductos,datemodified,nombre,stock,idund,pcosto,total) VALUES(4,'28-06-2019','CALTEK X 10KL',0,1,0,0);
 INSERT INTO productos(idproductos,datemodified,nombre,stock,idund,pcosto,total) VALUES(5,'28-06-2019','MALLA TEJIDA 0.90X2MTR CAL.14',0,1,0,0);
@@ -125,8 +128,46 @@ INSERT INTO ventas(idventa,datecreated,id_producto,cantidad,precio,total)VALUES(
 INSERT INTO ventas(idventa,datecreated,id_producto,cantidad,precio,total)VALUES(3,'28-06-2019',3,1,38000,38000);
 INSERT INTO ventas(idventa,datecreated,id_producto,cantidad,precio,total)VALUES(4,'28-06-2019',4,2,9500,19000);
 INSERT INTO ventas(idventa,datecreated,id_producto,cantidad,precio,total)VALUES(5,'28-06-2019',5,2,46000,92000);
-INSERT INTO ventas(idventa,datecreated,id_producto,cantidad,precio,total)VALUES(6,'28-06-2019',6,2,2500,5000);
+
+INSERT INTO ventas(datecreated,idproducto,cantidad,precio,total)VALUES('01-11-2019',37,2,30000,60000);
 
 
 -consultas
-SELECT * FROM productos JOIN unidad ON idund=idunidad
+SELECT * FROM productos 
+
+drop table productos;
+
+drop table carrito
+
+
+
+--consultas
+
+--total inventarios productos x costo
+
+CREATE TABLE INVENTARIO AS
+SELECT nombre,(stock*pcosto) as total FROM productos
+
+
+SELECT count(idproductos),idproductos,nombre,stock,nomund,pcosto
+ FROM productos JOIN unidad ON idund=idunidad
+  group by 2,3,4,5,6
+  ORDER BY 3
+
+select count(idproductos) from productos
+
+SELECT SUM(TOTAL) FROM INVENTARIO
+
+SELECT DATECREATED,NOMBRE,CANTIDAD,PCOSTO,PRECIO,(PRECIO-PCOSTO)*CANTIDAD AS GANANCIA FROM PRODUCTOS JOIN VENTAS ON IDPRODUCTOS=IDPRODUCTO
+WHERE DATECREATED = '%01-11-2019%'
+
+DROP TABLE INVENTARIO
+
+--total de ventas por dia
+SELECT SUM(TOTAL) FROM DETALLE JOIN FACTURA ON CODFACTURA=COD_FACTURA where fecha = '2019-07-02'
+
+--TOTAL GANANCIAS
+SELECT SUM(TOTAL-CANTIDAD*PCOSTO) AS GAN FROM PRODUCTOS JOIN DETALLE ON IDPRODUCTOS=IDPRODUCTO JOIN FACTURA ON CODFACTURA=COD_FACTURA
+ WHERE FECHA = '2019-07-02'
+
+INSERT INTO REPORTE VALUES('2019-07-02',1855400,402250,2170000,275767)

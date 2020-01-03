@@ -1,0 +1,103 @@
+<%- include("../header"); %>
+
+
+<div class="container my-3">
+    <div>
+        <form method="post" action="/ventas/ingresar">
+            <div class="row">
+                <div class="form-group col-sm-2">
+                    <label for="recipient-name" class="col-form-label">Numero:</label>
+                    <input type="text" class="form-control" id="numero" name="numero">
+                </div>
+                <div class="form-group col-sm-3">
+                    <label for="message-text" class="col-form-label">Fecha:</label>
+                    <input type="date" class="form-control" id="fecha" name="fecha" onchange="fventa()">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="message-text" class="col-form-label">Cliente:</label>
+                    <select class="form-control" id="cliente" name="cliente">
+                        <option value="0">Buscar cliente</option>
+                        <% clientes.forEach(clientes => { %>
+                        <option value="<%= clientes.id_clie %>"><%= clientes.nombre_clie %></option>
+                        <% })%>
+
+                    </select>
+                    <a href="#" class="list-group-item-action" data-toggle="modal" data-target="#exampleModal"
+                        data-whatever="@mdo"><i class="fas fa-plus"> nuevo cliente</i></a>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm">save</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="container">
+        <h2>Bordered Table</h2>
+        <p>The .table-bordered class adds borders on all sides of the table and the cells:</p>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Stock</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Subtotal</th>
+                    <th>Option</th>
+                </tr>
+            </thead>
+
+                
+
+                
+        </table>
+    </div>
+
+
+
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="n">Factura de Venta</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/clientes/ingresar" method="POST">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Nombres:</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" autocomplete="off"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Telefono:</label>
+                            <input type="text" class="form-control" id="telefono" name="telefono">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Dirección:</label>
+                            <input type="text" class="form-control" id="direccion" name="direccion">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="close" class="btn btn-secundary btn-sm">close</button>
+                            <button class="btn btn-primary btn-sm">save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<%- include("../footer"); %>

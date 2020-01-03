@@ -1,0 +1,54 @@
+<%- include("../header"); %>
+
+<div class=" w3-container my-3">
+
+    <form method="post" action="/ventas/ingresar">
+        <h3 class="text-center"><%= producto.nombre %></h3>
+
+        <div class="w3-container">
+            <input value="<%= producto.idproductos %>" name="idproducto" type="hidden" id="id">
+            <input value="<%= producto.pcosto %>" name="costo" type="hidden" id="costo">
+        </div>
+
+        <div class="w3-row-padding">
+
+            <div class="w3-col m3">
+                <div class="form-group">
+                    <label for="nombre">Fecha de venta</label>
+                    <input required id="fecha" placeholder="" class="w3-input" type="date" name="fecha" autofocus>
+                </div>
+            </div>
+        </div>
+        <div class="w3-row-padding">
+            <div class="w3-col m3">
+                <div class="form-group">
+                    <label for="nombre">Cantidad</label>
+                    <input required id="cantidad" placeholder="" class="w3-input" type="number" value="1"
+                        onchange="totalproduct()" onfocus="fventa()" name="cantidad" min="1" pattern="^[0-9]+">
+                </div>
+            </div>
+            <div class="w3-col m3">
+                <div class="form-group">
+                    <label for="nombre">Precio de Venta</label>
+                    <input required id="venta" value="<%= producto.pcosto/0.8 %>" class="w3-input" min="1" pattern="^[0-9]+"
+                        onchange="totalproduct()" type="number" name="venta">
+                </div>
+            </div>
+            <div class="w3-col m3">
+                <div class="form-group">
+                    <label for="nombre">Total</label>
+                    <input class="w3-input" id="total" type="text" name="total">
+                </div>
+            </div>
+            <div class="w3-col m3">
+                <button class="w3-purple w3-btn ">Añadir al carrito</button>
+            </div>
+        </div>
+
+
+
+    </form>
+
+
+</div>
+<%- include("../footer"); %>

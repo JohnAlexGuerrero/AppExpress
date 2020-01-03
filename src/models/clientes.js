@@ -1,19 +1,20 @@
 const conexion = require('../connection');
 
 module.exports = {
-    async insertar(nombre) {
-        let resultados = await conexion.query(`insert into categoria(nombre) values ($1)`,
-            [nombre]);
+    async insertar(nombre,telefono,email,direccion) {
+        
+        let resultados = await conexion.query('INSERT INTO cliente(nombre_clie,telefono,email,direccion) VALUES($1,$2,$3,$4);',
+            [nombre,telefono,email,direccion]);
         return resultados;
     },
 
     async obtener() {
-        const resultados = await conexion.query('select * from categoria');
+        const resultados = await conexion.query('SELECT * FROM cliente ORDER BY NOMBRE_CLIE;');
         return resultados.rows; 
     },
 
     async obtenerPorId(id) {
-        const resultados = await conexion.query(`select * from categoria where idsubcategoria = $1`, [id]);
+        const resultados = await conexion.query(`select * from carrito where idsubcategoria = $1`, [id]);
         return resultados.rows[0];
     },
 

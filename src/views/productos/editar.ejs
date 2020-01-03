@@ -1,69 +1,27 @@
 <%- include("../header"); %>
-<div class="col-12 my-3">
+<div class="col-sm-7">Registrar Factura <a href="#" data-toggle="modal" data-target="#exampleModal"
+        data-whatever="@mdo"><i class="fas fa-plus-circle"></a></i></div>
+
+<div class="col-12 my-3 shadow-lg p-3 mb-5 bg-white rounded">
 
     <h2 class="text-center"><%= producto.nombre %></h2>
     <hr>
     <div class="row">
         <div class="col-sm-12">
-            <form method="post" action="/productos/item">
+            <form method="post" action="/productos/actualizar">
                 <input value="<%= producto.idproductos %>" name="id" type="hidden">
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label for="nombre">Código</label>
-                        <input required id="codigo" placeholder="Código del producto" class="form-control" type="text"
-                            name="codigo">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="nombre">Marca</label>
-                            <input required id="marca" placeholder="Marca del producto" class="form-control" type="text"
-                                name="marca">
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label for="nombre">Color</label>
-                            <input id="color" placeholder="Nombre del producto" class="form-control" type="text"
-                                name="color" autocomplete="off">
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group ">
-                            <label for="inputState">Unidad</label>
-                            <select id="inputState" class="form-control" id="und" name="und">
-                                <option selected>Choose...</option>
-                                <option value="1">Unidad</option>
-                                <option value="2">Kilo</option>
-                                <option value="3">Bulto</option>
-                                <option value="4">Galon</option>
-                                <option value="5">Caneca</option>
-                                <option value="6">Metro</option>
-                                <option value="7">Rollo</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="row">
                     <div class="col-sm-4 form-group">
                         <label for="precio">Cantidad</label>
-                        <input required id="cantidad" placeholder=" " class="form-control" type="number"
-                            name="cantidad">
+                        <input required id="cantidad" placeholder="<%= producto.stock %> " class="form-control"
+                            type="number" name="cantidad">
                     </div>
                     <div class="col-sm-4 col-sm-4">
                         <div class="form-group">
                             <label for="precio">Precio costo</label>
-                            <input required id="costo" placeholder="Precio del producto" class="form-control"
+                            <input required id="costo" placeholder="<%= producto.pcosto %>" class="form-control"
                                 type="number" name="costo">
-                        </div>
-                    </div>
-                    <div class="col-sm-4 col-sm-4">
-                        <div class="form-group">
-                            <label for="precio">Precio de Venta</label>
-                            <input required id="precio" placeholder="Precio del producto" class="form-control"
-                                type="number" name="precio">
                         </div>
                     </div>
                 </div>
@@ -77,5 +35,45 @@
     </div>
 
 
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="n">Nuevo registro</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/reportes/compras/ingresar" method="POST">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Fecha:</label>
+                        <input type="date" class="form-control" id="fecha" name="fecha" autocomplete="off" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Factura de Compra ó Proveedor:</label>
+                        <input type="text" class="form-control" id="factura" name="factura">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Descripción:</label>
+                        <textarea type="text" class="form-control" id="descripcion" name="descripcion" cols="30"
+                            rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Valor:</label>
+                        <input type="number" class="form-control" id="valor" name="valor">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="close" class="btn btn-secundary btn-sm">close</button>
+                        <button class="btn btn-primary btn-sm">save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 <%- include("../footer"); %>

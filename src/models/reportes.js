@@ -1,15 +1,27 @@
 const conexion = require('../connection');
 
 module.exports = {
-    async insertar(nombre,cantidad,und,costo) {
-        let resultados = await conexion.query('INSERT INTO productos(nombre,stock,idund,pcosto) VALUES($1,$2,$3,$4);',
-            [nombre,cantidad,und,costo]);
+    async insertar(fecha,factura,descripcion,valor) {
+        let resultados = await conexion.query('INSERT INTO compras_pagos(fecha,factura,description,valor) VALUES($1,$2,$3,$4);',
+            [fecha,factura,descripcion,valor]);
         return resultados;
+    },
+
+    async insertar_g(fecha,descripcion,valor) {
+        let resultados = await conexion.query('INSERT INTO gastos(fecha,description,valor) VALUES($1,$2,$3);',
+            [fecha,descripcion,valor]);
+        return resultados;
+    },
+
+    async obtener_g() {
+        const resultados = await conexion.query(
+            'SELECT * FROM gastos ORDER BY fecha;');
+        return resultados.rows; 
     },
 
     async obtener() {
         const resultados = await conexion.query(
-            'SELECT idproductos,nombre,stock,pcosto,nomund FROM productos JOIN unidad ON idund=idunidad ORDER BY nombre;');
+            'SELECT * FROM compras_pagos ORDER BY fecha;');
         return resultados.rows; 
     },
 

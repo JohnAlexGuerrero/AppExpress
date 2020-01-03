@@ -1,24 +1,24 @@
 <%- include("../header"); %>
 
-<div class="container col-sm-6  my-4">
+<div class="w3-container w3-col m6 ">
 
     <h2>Agregar producto</h2>
     <form method="post" action="/productos/insertar">
         <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input required id="nombre" placeholder="Nombre del producto" class="form-control" type="text" name="nombre"
+            <input required id="nombre" placeholder="Nombre del producto" class="w3-input" type="text" name="nombre"
                 autocomplete="off">
         </div>
 
         <div class="row">
-            <div class="col-sm-3 form-group">
+            <div class="col-sm-4 form-group">
                 <label for="precio">Cantidad</label>
-                <input required id="cantidad" placeholder=" " class="form-control" type="number" name="cantidad">
+                <input required id="cantidad" placeholder=" " class="w3-input" type="number" name="cantidad">
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <div class="form-group ">
                     <label for="inputState">Unidad</label>
-                    <select id="inputState" class="form-control" id="und" name="und">
+                    <select id="inputState" class="w3-select" id="und" name="und">
                         <option selected>Choose...</option>
                         <option value="1">Unidad</option>
                         <option value="2">Kilo</option>
@@ -33,27 +33,14 @@
             <div class="col-sm-3 col-sm-4">
                 <div class="form-group">
                     <label for="precio">Precio costo</label>
-                    <input required id="costo" placeholder="Precio del producto" class="form-control" type="number"
+                    <input required id="costo" placeholder="Precio del producto" class="w3-input" type="number"
                         name="costo">
                 </div>
             </div>
         </div>
-
-        <div class="row">
-            
-            
-            <div class="col-sm-3 col-sm-4">
-                <div class="form-group">
-                    <label for="precio">Precio de Venta</label>
-                    <input required id="precio" placeholder="Precio del producto" class="form-control" type="number"
-                        name="precio">
-                </div>
-            </div>
-        </div>
-
         <div class="form-group">
-            <button class="btn btn-success">Guardar</button>
-            &nbsp;<a href="/productos" class="btn btn-primary">Volver</a>
+            <button class="w3-btn w3-button w3-purple">Guardar</button>
+            &nbsp;<a href="/productos" class="w3-btn btn-primary">Volver</a>
         </div>
     </form>
 </div>

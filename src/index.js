@@ -7,6 +7,9 @@ const morgan = require('morgan');
 
 const indexRouter = require('./routes/index');
 const productosRouter = require('./routes/productoController');
+const ventasRouter = require('./routes/ventasRouter');
+const clienteRouter = require('./routes/clienteRouter');
+const reporteRouter = require('./routes/reporteRouter');
 
 const app = express();
 
@@ -23,7 +26,9 @@ app.use(express.static(path.join(__dirname,'public')));
 
 app.use('/',indexRouter);
 app.use('/productos',productosRouter);
-//app.use('/inventario',productosRouter);
+app.use('/ventas',ventasRouter);
+app.use('/clientes',clienteRouter);
+app.use('/reportes',reporteRouter);
 
 
 // catch 404 and forward to error handler

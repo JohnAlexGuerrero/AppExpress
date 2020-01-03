@@ -1,12 +1,24 @@
 const express = require('express');
 const router = express.Router();
 
-const productosModel = require('../models/productos');
+const reporteModel = require('../models/reportes');
 
-router.get('/', function (req, res, next) {
-    productosModel.obtener().then(productos => {
-        res.render('productos/ver', {
-            productos: productos,
+router.get('/compras', function (req, res, next) {
+    reporteModel.obtener().then(compras => {
+        res.render('reportes/compras', {
+            compras: compras,
+        });
+    })
+        .catch(err => {
+            console.log(err);
+            return res.status(500).send('Error obteniendo productos (here)');
+        });
+});
+
+router.get('/gastos', function (req, res, next) {
+    reporteModel.obtener_g().then(gastos => {
+        res.render('reportes/gastos', {
+            gastos: gastos,
         });
     })
         .catch(err => {
@@ -19,12 +31,24 @@ router.get('/agregar', (req, res, next) => {
     res.render('productos/agregar');
 });
 
-router.post('/insertar', (req, res, next) => {
-    const { nombre, cantidad, und, costo } = req.body;
+router.post('/compras/ingresar', (req, res, next) => {
+    const { fecha,factura,descripcion,valor } = req.body;
 
-    productosModel.insertar(nombre, cantidad, und, costo)
+    reporteModel.insertar(fecha,factura,descripcion,valor)
         .then(idproductoInsertado => {
-            res.redirect('/productos');
+            res.redirect('/reportes/compras');
+        })
+        .catch(err => {
+            return res.status(500).send('Error insertado producto');
+        });
+});
+
+router.post('/gastos/ingresar', (req, res, next) => {
+    const { fecha,descripcion,valor } = req.body;
+
+    reporteModel.insertar_g(fecha,descripcion,valor)
+        .then(idproductoInsertado => {
+            res.redirect('/reportes/gastos');
         })
         .catch(err => {
             return res.status(500).send('Error insertado producto');
@@ -32,7 +56,7 @@ router.post('/insertar', (req, res, next) => {
 });
 
 router.get('/eliminar/:idproductos', (req, res, next) => {
-    productosModel.obtenerPorId(req.params.idproductos)
+    reporteModel.obtenerPorId(req.params.idproductos)
         .then(producto => {
             if (producto) {
                 res.render('productos/editar', {
@@ -48,7 +72,7 @@ router.get('/eliminar/:idproductos', (req, res, next) => {
 });
 
 router.get('/inventario/:idproductos', (req, res, next) => {
-    productosModel.obtenerPorId(req.params.idproductos)
+    reporteModel.obtenerPorId(req.params.idproductos)
         .then(producto => {
             if (producto) {
                 res.render('productos/inventario', {
@@ -64,7 +88,7 @@ router.get('/inventario/:idproductos', (req, res, next) => {
 });
 
 router.get('/editar/:idproductos', (req, res, next) => {
-    productosModel.obtenerPorId(req.params.idproductos)
+    reporteModel.obtenerPorId(req.params.idproductos)
         .then(producto => {
             if (producto) {
                 res.render('productos/editar', {
@@ -80,7 +104,7 @@ router.get('/editar/:idproductos', (req, res, next) => {
 });
 
 router.get('/cart/:idproductos', (req, res, next) => {
-    productosModel.obtenerPorId(req.params.idproductos)
+    reporteModel.obtenerPorId(req.params.idproductos)
         .then(producto => {
             if (producto) {
                 res.render('productos/cart', {
@@ -99,7 +123,7 @@ router.get('/cart/:idproductos', (req, res, next) => {
 router.post('/venta', (req, res, next) => {
     const { idproducto, fecha, cantidad, venta, total } = req.body;
 
-    productosModel.addcar(idproducto, fecha, cantidad, venta, total)
+    reporteModel.addcar(idproducto, fecha, cantidad, venta, total)
         .then(idprodInsertado => {
             res.redirect('/productos');
         })
@@ -115,7 +139,7 @@ router.post('/actualizar/', function (req, res, next) {
     const { id, cantidad, costo } = req.body;
 
     // Si todo va bien, seguimos
-    productosModel.actualizar(id, cantidad, costo)
+    reporteModel.actualizar(id, cantidad, costo)
         .then(() => {
             res.redirect("/productos");
         })
