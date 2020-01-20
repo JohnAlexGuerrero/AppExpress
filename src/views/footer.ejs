@@ -1,6 +1,17 @@
 </div>
 </main>
 
+
+<script>
+  function idproveedor() {
+    var proveedor = document.getElementById('option').value;
+    console.log(proveedor);
+    document.getElementById('idp').value = proveedor; 
+    return proveedor;
+  }
+  
+</script>
+
 <script>
   function myFunction() {
     var input, filter, table, tr, td, i;
@@ -37,6 +48,17 @@
   }
 </script>
 
+
+<script>
+  //precio de producto de venta
+  function precioVenta() {
+    var costo = document.getElementById('costo').value;
+    var porcentaje = 0.80;
+    var result = costo / porcentaje;
+    document.getElementById("precio").value = result;
+  }
+</script>
+
 <script>
   // Get the Sidebar
   var mySidebar = document.getElementById("mySidebar");
@@ -62,14 +84,8 @@
   }
 </script>
 
-<script>
-  var app = new Vue({
-    el: '#app',
-    data: {
-      message: 'Hola Vue!'
-    }
-  })
-</script>
+<script src="../public/vue/app.js/"></script>
+
 
 </body>
 

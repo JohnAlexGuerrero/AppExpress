@@ -1,0 +1,35 @@
+<%- include("../header"); %>
+
+<div class="w3-container w3-col m6 ">
+
+    <h2>Agregar proveedor</h2>
+    <form method="post" action="/proveedor/insertar">
+        <div class="form-group">
+            <label for="nombre">Empresa</label>
+            <input required id="empresa" placeholder="Distribuidor" class="w3-input" type="text" name="empresa"
+                autocomplete="off">
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4 form-group">
+                <label for="precio">Contacto</label>
+                <input required id="contacto" placeholder=" " class="w3-input" type="text" name="contacto" autocomplete="off">
+            </div>
+            
+            <div class="col-sm-3 col-sm-4">
+                <div class="form-group">
+                    <label for="precio">Telefono</label>
+                    <input required id="telefono" placeholder="" class="w3-input" type="text"
+                        name="telefono" autocomplete="off">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="form-group">
+            <button class="w3-btn w3-button w3-green">Guardar</button>
+            &nbsp;<a href="/proveedor" class="w3-btn ">Volver</a>
+        </div>
+    </form>
+</div>
+<%- include("../footer"); %>
+

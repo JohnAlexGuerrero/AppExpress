@@ -24,9 +24,8 @@
                         <option value="2">Kilo</option>
                         <option value="3">Bulto</option>
                         <option value="4">Galon</option>
-                        <option value="5">Caneca</option>
-                        <option value="6">Metro</option>
-                        <option value="7">Rollo</option>
+                        <option value="5">Metro</option>
+                        <option value="6">Rollo</option>
                     </select>
                 </div>
             </div>
@@ -34,14 +33,24 @@
                 <div class="form-group">
                     <label for="precio">Precio costo</label>
                     <input required id="costo" placeholder="Precio del producto" class="w3-input" type="number"
-                        name="costo">
+                        name="costo" onkeyup="precioVenta()">
+                </div>
+            </div>
+            <div class="col-sm-3 col-sm-4">
+                <div class="form-group">
+                    <label for="precio">Precio Venta</label>
+                    <input required id="precio" value="0" class="w3-input" type="number"
+                        name="precio">
                 </div>
             </div>
         </div>
+        <input type="text" value="0" hidden>
+        <br>
         <div class="form-group">
-            <button class="w3-btn w3-button w3-purple">Guardar</button>
-            &nbsp;<a href="/productos" class="w3-btn btn-primary">Volver</a>
+            <button class="w3-btn w3-button w3-green">Guardar</button>
+            &nbsp;<a href="/productos" class="w3-btn ">Volver</a>
         </div>
     </form>
 </div>
 <%- include("../footer"); %>
+

@@ -1,0 +1,150 @@
+<%- include("../header"); %>
+
+<div class="w3-container">
+  <h2>Lista de Distribuidores</h2>
+
+  <select class="w3-select w3-container w3-border" id="option" onchange="idproveedor()">
+    <option value="" disabled selected>--SELECCION--</option>
+    <% data.forEach(proveedor => { %>
+    <form action="/proveedor/">
+      <option value="<%= proveedor.idproveedor %>"><%= proveedor.empresa %></option>
+    </form>
+
+
+    <% })%>
+  </select>
+
+  <br>
+  <div class="w3-container">
+    <a href="/proveedor/Agregar" class=" w3-round-large w3-rigth"><i class="fas fa-plus-circle"></i>Agregar
+      Proveedor</a>
+  </div>
+
+</div>
+
+<hr>
+
+<div class="w3-container">
+  <h4>Historial</h4>
+  <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Productos</button>
+  <button onclick="document.getElementById('id02').style.display='block'" class="w3-button w3-red"><i
+      class="fas fa-plus-circle"></i></button>
+
+  <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+    <% data.forEach(producto => { %>
+    <tr>
+      <td><%= producto.nombreproducto %></td>
+      <td>65%</td>
+    </tr>
+    <% })%>
+  </table><br>
+  <button class="w3-button w3-dark-grey">More Countries  <i class="fa fa-arrow-right"></i></button>
+</div>
+
+
+
+
+<div id="id01" class="w3-modal w3-animate-opacity">
+  <div class="w3-modal-content w3-card-4">
+    <header class="w3-container ">
+      <span onclick="document.getElementById('id01').style.display='none'"
+        class="w3-button w3-large w3-display-topright">&times;</span>
+
+      <h2>Productos</h2>
+    </header>
+    <div class="w3-container">
+      <div class="w3-container">
+
+        <input class="w3-input w3-border w3-padding" type="search" placeholder="Search Products.." id="myInput"
+          onkeyup="myFunction()">
+
+        <table class="w3-table-all w3-margin-top" id="myTable">
+          <tr>
+            <th style="width:60%;">Descripción</th>
+          </tr>
+          <% data.forEach(producto => { %>
+          <tr>
+            <td><%= producto.nombreproducto %></td>
+          </tr>
+          <% })%>
+
+        </table>
+
+      </div>
+    </div>
+    <footer class="w3-container">
+      <p>Modal Footer</p>
+    </footer>
+  </div>
+</div>
+</div>
+
+
+<div id="id02" class="w3-modal w3-animate-opacity">
+  <div class="w3-modal-content w3-card-4">
+    <header class="w3-container ">
+      <span onclick="document.getElementById('id02').style.display='none'"
+        class="w3-button w3-large w3-display-topright">&times;</span>
+
+      <h2>Agregar producto</h2>
+    </header>
+    <div class="w3-container w3-col m6 ">
+
+
+      <form method="post" action="/productos/insertar">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input required id="nombre" placeholder="Nombre del producto" class="w3-input" type="text" name="nombre"
+            autocomplete="off" onchange="idproveedor()">
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4 form-group">
+            <label for="precio">Cantidad</label>
+            <input required id="cantidad" placeholder=" " class="w3-input" type="number" name="cantidad">
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group ">
+              <label for="inputState">Unidad</label>
+              <select id="inputState" class="w3-select" id="und" name="und">
+                <option selected>Choose...</option>
+                <option value="1">Unidad</option>
+                <option value="2">Kilo</option>
+                <option value="3">Bulto</option>
+                <option value="4">Galon</option>
+                <option value="5">Metro</option>
+                <option value="6">Rollo</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-3 col-sm-4">
+            <div class="form-group">
+              <label for="precio">Precio costo</label>
+              <input required id="costo" placeholder="Precio del producto" class="w3-input" type="number" name="costo"
+                onkeyup="precioVenta()">
+            </div>
+          </div>
+          <div class="col-sm-3 col-sm-4">
+            <div class="form-group">
+              <label for="precio">Precio Venta</label>
+              <input required id="precio" value="0" class="w3-input" type="number" name="precio">
+            </div>
+          </div>
+        </div>
+        <input type="text" value="0" name="proveedor" id="idp" hidden>
+        <br>
+        <div class="form-group">
+          <button class="w3-btn w3-button w3-green">Guardar</button>
+        </div>
+      </form>
+    </div>
+    <footer class="w3-container">
+      <p>Modal Footer</p>
+    </footer>
+  </div>
+</div>
+</div>
+
+
+
+<%- include("../footer"); %>

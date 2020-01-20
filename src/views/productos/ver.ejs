@@ -1,83 +1,35 @@
 <%- include("../header"); %>
 
-<p id="demo"></p>
+<div class="w3-container">
+    <h2>Inventario Productos</h2>
+    
+  
+    <input class="w3-input w3-border w3-padding" type="search" placeholder="Search Products.." id="myInput" onkeyup="myFunction()">
+    
+  
+    <table class="w3-table-all w3-margin-top" id="myTable">
+      <tr>
+        <th style="width:60%;">Descripción</th>
+        <th style="width:40%;"> Cantidad</th>
+        <th style="width:40%;"> Precio</th>
+      </tr>
+      <% productos.forEach(producto => { %>
+      <tr>
+        <td><%= producto.nombreproducto %></td>
+        <td><%= producto.stock %> Und</td>
+        <td>$<span class=""><%= producto.precio %></span></td>
+      </tr>
+      <% })%>
+      
+    </table>
 
-<script>
-    var d = new Date();
-    document.getElementById("demo").innerHTML = d;
-</script>
+    <br>
+    <div class="w3-container w3-center">
+        <a href="/productos/Agregar" class="w3-button w3-border w3-red w3-round-large w3-rigth"><i
+            class="fas fa-plus-circle"></i>Agregar Producto</a>
+    </div>    
 
-<div class="w3-container my-3 w3-mobile">
-    <div class="w3-row">
-        <div class=" w3-col m12">
-            <div class="w3-panel w3-container w3-row">
-                <div class="w3-col m10">
-                    <h3>Inventario de Productos</h3>
-                </div>
-                <div class="w3-col m2">
-                    <a href="/productos/Agregar" class="w3-button w3-round-large "><i
-                            class="fas fa-plus-circle"></i>Agregar Producto</a>
-                </div>
-            </div>
-
-            <div class="w3-row">
-                <div class="w3-col m6 w3-center">
-                    <input class="w3-bar-item w3-input w3-white w3-mobile w3-col m3 l3" type="search"
-                        placeholder="Search products.." id="myInput" onkeyup="myFunction()">
-                </div>
-            </div>
-            <br>
-
-            <div class="w3-container">
-                <table id="dtMaterialDesignExample" class="w3-table-all w3-border-0" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th class="th-sm w3-blue">Producto
-                            </th>
-                            <th class="th-sm w3-blue">Stock
-                            </th>
-                            <th class="th-sm w3-blue">Unidad
-                            </th>
-                            <th class="th-sm w3-blue">Costo Unit
-                            </th>
-                            <th class="th-sm w3-blue">Precio Venta
-                            </th>
-                            <th class="th-sm w3-blue">Actions
-                            </th>
-                        </tr>
-                    </thead>
-
-                    <tbody id="myTable">
-
-                        <% productos.forEach(producto => { %>
-                        <tr>
-                            <td><%= producto.nombre %></td>
-                            <td><span class="badge badge-primary badge-pill"><%= producto.stock %>
-                                </span></td>
-                            <td><%= producto.nomund %></td>
-                            <td>$<%= producto.pcosto %></td>
-                            <td>$<span class=""><%= producto.pcosto/0.80 %></span></td>
-                            <td><a href="/productos/cart/<%= producto.idproductos %>" class="list-group-item-action "><i
-                                        class="fas fa-cart-plus"></i></a>
-                                | <a href="/productos/editar/<%= producto.idproductos %>"
-                                    class="list-group-item-action"><i class="fas fa-plus"></i></a>
-
-                            </td>
-                        </tr>
-
-                        <% })%>
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 </div>
-
-<div id="app">
-    {{ message }}
-</div>
-
 
 
 <%- include("../footer"); %>

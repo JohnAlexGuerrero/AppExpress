@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const productosModel = require('../models/productos');
+const proveedorModel = require('../models/proveedor');
 
 router.get('/', function (req, res, next) {
-    productosModel.obtener().then(productos => {
-        res.render('productos/ver', {
-            productos: productos,
+    proveedorModel.obtener().then(data => {
+        res.render('proveedor/ver', {
+            data: data,
         });
     })
         .catch(err => {
@@ -16,15 +16,15 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/agregar', (req, res, next) => {
-    res.render('productos/agregar');
+    res.render('proveedor/agregar');
 });
 
 router.post('/insertar', (req, res, next) => {
-    const { nombre, cantidad, und, costo,precio,proveedor } = req.body;
+    const { empresa,contacto,telefono } = req.body;
 
-    productosModel.insertar(nombre, cantidad, und, costo,precio,proveedor)
+    proveedorModel.insertar(empresa,contacto,telefono)
         .then(idproductoInsertado => {
-            res.redirect('/productos');
+            res.redirect('/proveedor');
         })
         .catch(err => {
             return res.status(500).send('Error insertado producto');
@@ -32,7 +32,7 @@ router.post('/insertar', (req, res, next) => {
 });
 
 router.get('/eliminar/:idproductos', (req, res, next) => {
-    productosModel.obtenerPorId(req.params.idproductos)
+    proveedorModel.obtenerPorId(req.params.idproductos)
         .then(producto => {
             if (producto) {
                 res.render('productos/editar', {

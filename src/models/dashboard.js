@@ -9,7 +9,7 @@ module.exports = {
     },
 
     async obtener() {
-        const resultados = await conexion.query('SELECT COUNT(IDPRODUCTOS) as productos FROM PRODUCTOS;');
+        const resultados = await conexion.query('SELECT COUNT(IDPRODUCTO) as productos FROM PRODUCTOS;');
         console.log(resultados.rows)
         return resultados.rows[0]; 
     },

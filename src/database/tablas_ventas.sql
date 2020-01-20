@@ -28,13 +28,25 @@ PRIMARY KEY(codfactura,idproducto),
 FOREIGN KEY(idproducto) REFERENCES productos(idproductos) ON  DELETE CASCADE
 );
 
-CREATE TABLE producto(
-id_producto SERIAL,
+CREATE TABLE unidad(
+idUnidad SERIAL,
+nameUnidad VARCHAR(30)NOT NULL UNIQUE,
+PRIMARY KEY(idUnidad)
+);
+
+CREATE TABLE productos(
+idproducto SERIAL,
 datemodified TIMESTAMP DEFAULT NOW(),
-nombre_producto VARCHAR(60) NOT NULL UNIQUE,
+nombreProducto VARCHAR(60) NOT NULL UNIQUE,
 stock SMALLINT DEFAULT 0,
+idUnidad smallint not null,
 costo NUMERIC(10,2) DEFAULT 0.00,
-PRIMARY KEY(id_producto)
+precio NUMERIC(10,2) DEFAULT 0.00,
+image varchar(60),
+idpvd smallint,
+PRIMARY KEY(idproducto),
+FOREIGN KEY(idUnidad) REFERENCES unidad(idUnidad),
+FOREIGN KEY(idpvd) REFERENCES proveedores(idproveedor)
 );
 
 
@@ -56,20 +68,19 @@ VALOR NUMERIC(10,2) DEFAULT 0.00,
 PRIMARY KEY(idcompra)
 );
 
+create table proveedores(
+idproveedor serial,
+empresa varchar(60) not null,
+contacto varchar(40)not null,
+telefono varchar(40)not null,
+primary key(idproveedor)
+);
 
 --CONTEO DE PRODUCTOS
 SELECT COUNT(IDPRODUCTOS) as productos FROM PRODUCTOS
 	
-
-
-
-
-
-DELETE FROM FACTURA WHERE COD_FACTURA='2294'
-
-
-
---
+SELECT * FROM proveedores left join productos on idproveedor=idpvd
+ORDER BY empresa;
 --
 SELECT FECHA,NOMBRE,CANTIDAD,PCOSTO,PRECIO,TOTAL,GANANCIA FROM VENTAS JOIN PRODUCTOS ON IDPRODUCTOS=IDPRODUCTO
 

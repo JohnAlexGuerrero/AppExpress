@@ -1,15 +1,15 @@
 const conexion = require('../connection');
 
 module.exports = {
-    async insertar(nombre,cantidad,und,costo) {
-        let resultados = await conexion.query('INSERT INTO productos(nombre,stock,idund,pcosto) VALUES($1,$2,$3,$4);',
-            [nombre,cantidad,und,costo]);
+    async insertar(nombre,cantidad,und,costo,precio,proveedor) {
+        let resultados = await conexion.query('INSERT INTO productos(nombreproducto,stock,idunidad,costo,precio,idpvd) VALUES($1,$2,$3,$4,$5,$6);',
+            [nombre,cantidad,und,costo,precio,proveedor]);
         return resultados;
     },
 
     async obtener() {
         const resultados = await conexion.query(
-            'SELECT idproductos,nombre,stock,pcosto,nomund FROM productos JOIN unidad ON idund=idunidad ORDER BY nombre;');
+            'SELECT * FROM productos JOIN unidad using(idunidad) ORDER BY nombreproducto;');
         return resultados.rows; 
     },
 
